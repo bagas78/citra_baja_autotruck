@@ -51,6 +51,7 @@
                   <th>Nama</th>
                   <th>Rangking</th>
                   <th>Total Nilai</th>
+                  <th>Tahun</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -62,6 +63,7 @@
                     <td><?php echo $key['karyawan_nama'] ?></td>
                     <td><?php echo $i ?></td>
                     <td><?php echo $key['total_nilai'] ?></td>
+                    <td><?php echo date_format(date_create($key['total_tanggal']), 'Y') ?></td>
                   </tr>
 
                 <?php $i++ ?>

@@ -9,7 +9,7 @@
       </ol> 
     </section>    
 
-    <!-- Main content -->  
+    <!-- Main content -->   
     <section class="content">    
 
     <?php if ($this->session->flashdata('gagal')): ?>
@@ -49,6 +49,8 @@
 
           <!--kriteria-->
 
+          <small class="badge" style="background: crimson;">Table perbandingan (kolom = 2 maka baris = 1/2 dan sebaliknya)</small>
+
           <table class="table table-bordered">
             <thead>
               <tr>
@@ -84,6 +86,10 @@
             </tbody>
           </table>
 
+          <div class="clearfix"></div>
+
+          <small class="badge" style="background: crimson; visibility: collapse;">Eigen = kolom / jumlah</small>
+
           <table class="table table-bordered" hidden="">
             <thead>
               <tr>
@@ -116,20 +122,23 @@
 
           <div id="lamda"></div>
 
-            <div class="col-xs-6 row">
+            <div class="col-xs-12 row">
               <table class="table table-bordered" hidden="">
                 <tbody>
                   <tr>
-                    <th style="width:50%">Lamda Max</th>
+                    <th style="width:10%">Lamda Max</th>
                     <td><input class="form-control" type="number" readonly="" id="lamda_max" name=""></td>
+                    <td style="border: none;"><small class="badge" style="background: crimson;">Lamda max = SUM( jumlah * rata )</small></td>
                   </tr>
                   <tr>
-                    <th style="width:50%">CI</th>
+                    <th style="width:10%">CI</th>
                     <td><input class="form-control" type="number" readonly="" id="ci" name=""></td>
+                    <td style="border: none;"><small class="badge" style="background: crimson;">CI = (lamdamax - jumlah kritera) / (jumlah kriteria - 1)</small></td>
                   </tr>
                   <tr>
-                    <th style="width:50%">CR</th>
+                    <th style="width:10%">CR</th>
                     <td><input class="form-control" type="number" readonly="" id="cr" name=""></td>
+                    <td style="border: none;"><small class="badge" style="background: crimson;">CR = CI / Daftar random index konsisten</small></td>
                   </tr>
                 </tbody>
               </table>
@@ -137,11 +146,15 @@
 
           <div class="clearfix"></div>
 
-          <hr><h4 align="center" class="text-navy"><b>-- SUB KRITERIA --</b></h4><hr>
+          <h4 align="center" class="text-navy"><b>-- SUB KRITERIA --</b></h4>
 
           <!--alternatif-->
 
           <?php foreach ($kriteria_data as $kriteria): ?>
+
+          <div class="clearfix"></div>
+
+          <small class="badge" style="background: crimson;">Table perbandingan (kolom = 2 maka baris = 1/2 dan sebaliknya)</small>
 
            <table class="table table-bordered">
             <thead>
@@ -202,6 +215,8 @@
             </tbody>
           </table>
 
+          <small class="badge" style="background: crimson; visibility: collapse;">Eigen = kolom / jumlah</small>
+
           <table class="table table-bordered" hidden="">
             <thead>
               <tr>
@@ -251,20 +266,23 @@
 
           <div id="<?php echo $s1 ?>_lamda"></div>
 
-            <div class="col-xs-6 row">
+            <div class="col-xs-12 row">
               <table class="table table-bordered" hidden="">
                 <tbody>
                   <tr>
-                    <th style="width:50%">Lamda Max</th>
+                    <th style="width:10%">Lamda Max</th>
                     <td><input class="form-control" type="number" readonly="" id="<?php echo $s1 ?>_lamda_max" name=""></td>
+                    <td style="border: none;"><small class="badge" style="background: crimson;">Lamda max = SUM( jumlah * rata )</small></td>
                   </tr>
                   <tr>
-                    <th style="width:50%">CI</th>
+                    <th style="width:10%">CI</th>
                     <td><input class="form-control" type="number" readonly="" id="<?php echo $s1 ?>_ci" name=""></td>
+                    <td style="border: none;"><small class="badge" style="background: crimson;">CI = (lamdamax - jumlah kritera) / (jumlah kriteria - 1) </small></td>
                   </tr>
                   <tr>
-                    <th style="width:50%">CR</th>
+                    <th style="width:10%">CR</th>
                     <td><input class="form-control" type="number" readonly="" id="<?php echo $s1 ?>_cr" name=""></td>
+                    <td style="border: none;"><small class="badge" style="background: crimson;">CR = CI / Daftar random index konsisten</small></td>
                   </tr>
                 </tbody>
               </table>
@@ -274,9 +292,9 @@
 
           <div class="clearfix"></div>
 
-          <hr><h4 align="center" class="text-navy"><b>-- PENILAIAN ALTERNATIF --</b></h4><hr>
+          <h4 id="title_alternatif" align="center" class="text-navy"><b>-- PENILAIAN ALTERNATIF --</b></h4>
 
-          <table class="table table-bordered">
+          <table class="table table-bordered" id="table_alternatif">
             <thead>
               <tr>
                 <th>Penilaian</th>
@@ -318,7 +336,7 @@
             </tbody>
           </table>
 
-          <table class="table table-bordered" hidden="">
+          <table style="visibility: collapse;" class="table table-bordered" hidden="">
             <thead>
               <tr>
                 <?php foreach ($karyawan_data as $key): ?>
@@ -353,10 +371,10 @@
 
           <div class="clearfix"></div>
 
-          <hr>
          
-          <div id="hasil_title"></div>
-          <table class="table table-bordered"><tbody id="hasil"></tbody></table>
+         
+          <div hidden="" id="hasil_title"></div>
+          <table style="visibility: collapse;" class="table table-bordered"><tbody id="hasil"></tbody></table>
 
           <button type="button" onclick="proses()" class="btn btn-primary"><i class="fa fa-gear fa-spin"></i> Proses</button>
           <button type="button" disabled="" onclick="window.print()" id="print" class="btn btn-danger"><i class="fa fa-print"></i> Cetak</button>
@@ -428,6 +446,12 @@
 
   function proses(){
 
+    $('.badge').css('visibility', '');
+
+    ////////////////// hidden alternatif //////////////////
+    $('#title_alternatif').css('visibility', 'collapse');
+    $('#table_alternatif').css('visibility', 'collapse');
+
     ///////////////////-- KRITERIA --////////////////////////
     $('#lamda').empty();
     $('#rangking').empty();
@@ -497,7 +521,7 @@
       $('#ci').val(ci.toFixed(3));
 
       //CR
-      var ir = ['','0','0','0.58','0.9','1.12','1.24','1.32','1.41','1.45','1.49','1.51','1.48','1.56','1.57','1.59'];
+      var ir = ['','0','0','0.58','0.98','1.12','1.24','1.32','1.41','1.45','1.49','1.51','1.48','1.56','1.57','1.59'];
 
       var cr = ci.toFixed(3) / ir[<?php echo count($kriteria_data) ?>];
       $('#cr').val(cr.toFixed(3));
@@ -588,7 +612,7 @@
         $('#<?php echo $sub ?>_ci').val(ci.toFixed(3));
 
         //CR
-        var ir = ['','0','0','0.58','0.9','1.12','1.24','1.32','1.41','1.45','1.49','1.51','1.48','1.56','1.57','1.59'];
+        var ir = ['','0','0','0.58','0.98','1.12','1.24','1.32','1.41','1.45','1.49','1.51','1.48','1.56','1.57','1.59'];
 
         var cr = ci.toFixed(3) / ir[<?php echo count($xv) ?>];
         $('#<?php echo $sub ?>_cr').val(cr.toFixed(3));

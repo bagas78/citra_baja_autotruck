@@ -6,7 +6,7 @@ class Login extends CI_Controller{
   }
   function index(){
     $this->load->view('login');
-  } 
+  }  
   function auth(){
     $email = $this->input->post('user_email');
     $pass = md5($this->input->post('user_password'));
@@ -22,6 +22,7 @@ class Login extends CI_Controller{
 
               $this->session->set_userdata('id',$cek[0]['user_id']);
               $this->session->set_userdata('login','1');
+              $this->session->set_userdata('level',$cek[0]['user_level']);
               
               redirect(base_url('dashboard'));
       }

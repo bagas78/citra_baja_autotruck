@@ -31,9 +31,10 @@ class User extends CI_Controller{
 			$id = $cek['user_id']+1;
 			$set = array(
 							'user_id' => $id,
-							'user_name' => $_POST['user_name'], 
+							'user_name' => $_POST['user_name'],
+							'user_level' => $_POST['user_level'],  
 							'user_email' => $x, 
-							'user_password' => md5($x),
+							'user_password' => md5($_POST['user_password']),
 							'user_tanggal'	=> date('Y-m-d'),
 						);
 			$this->query_builder->add('t_user',$set);
@@ -64,9 +65,8 @@ class User extends CI_Controller{
 		$x = $_POST['user_email'];
 		$set = array(
 						'user_name' => $_POST['user_name'], 
+						'user_level' => $_POST['user_level'],
 						'user_email' => $x, 
-						'user_password' => md5($x),
-						'user_tanggal'	=> date('Y-m-d'),
 					);
 		$this->query_builder->update('t_user',$set,'user_id ='.$id);
 		$this->session->set_flashdata('success','Data berhasil di rubah');

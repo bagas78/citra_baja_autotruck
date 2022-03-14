@@ -15,7 +15,7 @@
       <!-- AREA CHART -->
       <div class="box">
         <div class="box-header with-border">
-          <h3 class="box-title">Rangking Analytical Hierarchy Process (AHP)</h3>
+          <h3 class="box-title">Chart Rangking AHP + PM</h3>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -25,25 +25,7 @@
         </div>
         <div class="box-body">
           
-          <div id="bar-chart-ahp" style="height: 300px;"></div>
-
-        </div>
-        <!-- /.box-body -->
-      </div>
-
-      <div class="box">
-        <div class="box-header with-border">
-          <h3 class="box-title">Rangking Profile Matching (PM)</h3>
-
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-          </div>
-        </div>
-        <div class="box-body">
-          
-          <div id="bar-chart-pm" style="height: 300px;"></div>
+          <div id="bar-chart" style="height: 300px;"></div>
 
         </div>
         <!-- /.box-body -->
@@ -120,50 +102,13 @@
 
     var bar_data = {
       data : [
-                <?php foreach ($peringkat_ahp as $ahp): ?>
-                ['<?php echo $ahp['nama'].' ('.$ahp['nilai'].')' ?>', <?php echo $ahp['nilai'] ?>],
+                <?php foreach ($peringkat as $key): ?>
+                ['<?php echo $key['nama'].' ('.$key['nilai'].')' ?>', <?php echo $key['nilai'] ?>],
                 <?php endforeach ?>
              ],
       color: '#001f3f'
     }
-    $.plot('#bar-chart-ahp', [bar_data], {
-      grid  : {
-        borderWidth: 1,
-        borderColor: '#001f3f',
-        tickColor  : '#001f3f'
-      },
-      series: {
-        bars: {
-          show    : true,
-          barWidth: 0.5,
-          align   : 'center'
-        }
-      },
-      xaxis : {
-        mode      : 'categories',
-        tickLength: 0
-      }
-    })
-    /* END BAR CHART */
-
-</script>
-
-<script type="text/javascript">
-     
-     /*
-     * BAR CHART
-     * ---------
-     */
-
-    var bar_data = {
-      data : [
-                <?php foreach ($peringkat_pm as $pm): ?>
-                ['<?php echo $pm['nama'].' ('.$pm['nilai'].')' ?>', <?php echo $pm['nilai'] ?>],
-                <?php endforeach ?>
-             ],
-      color: '#001f3f'
-    }
-    $.plot('#bar-chart-pm', [bar_data], {
+    $.plot('#bar-chart', [bar_data], {
       grid  : {
         borderWidth: 1,
         borderColor: '#001f3f',

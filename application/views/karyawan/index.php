@@ -32,9 +32,17 @@
       <div class="box">
         <div class="box-header with-border">
 
+          <?php if ($this->session->userdata('level') == 2): ?>
+            
             <div align="left">
               <button class="btn bg-navy" data-toggle="modal" data-target="#modal-album"><i class="fa fa-plus"></i> Tambah Data</button>
             </div>
+
+          <?php else: ?>
+
+            <br/>
+
+          <?php endif ?>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -54,7 +62,11 @@
                   <th>Jabatan</th>
                   <th>TTL</th>
                   <th>Alamat</th>
-                  <th>Action</th>
+
+                  <?php if ($this->session->userdata('level') == 2): ?>
+                    <th>Action</th>
+                  <?php endif ?>
+
                 </tr>
                 </thead>
                 <tbody>
@@ -68,6 +80,9 @@
                     <td><?php echo $key['karyawan_jabatan'] ?></td>
                     <td><?php echo $key['karyawan_tempat_lahir'].', '.$key['karyawan_tanggal_lahir'] ?></td>
                     <td><?php echo $key['karyawan_alamat'] ?></td>
+
+                    <?php if ($this->session->userdata('level') == 2): ?>
+
                     <td style="width: 50px;">
                       <div>
                       <button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit<?php echo $key['karyawan_id'] ?>"><i class="fa fa-edit"></i></button>
@@ -75,6 +90,9 @@
 
                       </div>
                     </td>
+                  
+                    <?php endif ?>
+                  
                   </tr>
 
                    <!--modal hapus-->

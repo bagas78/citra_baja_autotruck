@@ -50,6 +50,7 @@
                 <tr>
                   <th>Nama</th>
                   <th>Email</th>
+                  <th>Level</th>
                   <th>Tanggal Input</th>
                   <th>Action</th>
                 </tr>
@@ -61,6 +62,21 @@
                   <tr>
                     <td><?php echo $key['user_name'] ?></td>
                     <td><?php echo $key['user_email'] ?></td>
+                    <td>
+                      <?php switch ($key['user_level']) {
+                      case 1:
+                        echo 'Admin';
+                        break;
+                      
+                      case 2:
+                        echo 'Manager';
+                        break;
+
+                      case 3:
+                        echo 'Direktur';
+                        break;
+                      } ?>
+                    </td>
                     <td style="width: 20%;"><?php echo $key['user_tanggal'] ?></td>
                     <td style="width: 50px;">
                       <div>
@@ -109,6 +125,18 @@
                                 <label>Email</label>
                                 <input required="" type="text" name="user_email" class="form-control" placeholder="Email" value="<?php echo $key['user_email'] ?>">
                               </div>
+                              <div class="form-group">
+                                <label>Level</label>
+                                <select id="level" name="user_level" class="form-control" required="">
+                                  <option value="" hidden="">-- Pilih --</option>
+                                  <option value="1">Admin</option>
+                                  <option value="2">Manager</option>
+                                  <option value="3">Direktur</option>
+                                </select>
+                              </div>
+                              <script type="text/javascript">
+                                $('#level').val(<?php echo $key['user_level'] ?>).change();
+                              </script>
                             </div>
                             <!-- /.box-body -->
 
@@ -154,6 +182,19 @@
                     <div class="form-group">
                       <label>Email</label>
                       <input required="" type="text" name="user_email" class="form-control" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                      <label>Password</label>
+                      <input required="" type="password" name="user_password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>Level</label>
+                      <select name="user_level" class="form-control" required="">
+                        <option value="" hidden="">-- Pilih --</option>
+                        <option value="1">Admin</option>
+                        <option value="2">Manager</option>
+                        <option value="3">Direktur</option>
+                      </select>
                     </div>
                   </div>
                   <!-- /.box-body -->

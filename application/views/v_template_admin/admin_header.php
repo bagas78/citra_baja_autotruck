@@ -1,3 +1,5 @@
+<?php $level = $this->session->userdata('level'); ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +12,7 @@
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?php echo base_url() ?>adminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css"> 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url() ?>adminLTE/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="<?php echo base_url() ?>adminLTE/bower_components/font-awesome/css/font-awesome.min.css"> 
   <!-- Ionicons -->  
   <link rel="stylesheet" href="<?php echo base_url() ?>adminLTE/bower_components/Ionicons/css/ionicons.min.css"> 
   <!-- Theme style -->
@@ -166,23 +168,33 @@
             </a>
           </li>
 
-          <li <?php echo @$user; ?>>
-            <a href="<?php echo base_url() ?>user">
-              <i class="fa fa-plus"></i> <span>Admin Control</span>
-            </a>
-          </li>
-
+          <?php if ($level == 1): ?>
+  
+            <li <?php echo @$user; ?>>
+              <a href="<?php echo base_url() ?>user">
+                <i class="fa fa-plus"></i> <span>User Control</span>
+              </a>
+            </li>
+  
+          <?php endif ?>
+          
           <li <?php echo @$profile; ?>>
             <a href="<?php echo base_url() ?>profile">
               <i class="fa fa-user-circle-o"></i> <span>Profile</span>
             </a>
           </li>
 
+          <?php if ($level > 1): ?>
+          
           <li <?php echo @$karyawan; ?>>
             <a href="<?php echo base_url() ?>karyawan">
               <i class="fa fa-users"></i> <span>Karyawan</span>
             </a>
           </li>
+
+          <?php endif ?>
+
+          <?php if ($level == 2): ?>
 
           <li class="treeview <?php echo @$ahp; ?>" style="height: auto;">
             <a href="#">
@@ -218,11 +230,17 @@
             </ul>
           </li>
 
+          <?php endif ?>
+
+          <?php if ($level > 1): ?>
+
           <li <?php echo @$rangking; ?>>
             <a href="<?php echo base_url('pm/hasil_rangking') ?>">
               <i class="fa fa-trophy"></i> <span>Hasil Rangking</span>
             </a>
           </li>
+
+        <?php endif ?>
 
       </ul>
     </section>
